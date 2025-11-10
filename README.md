@@ -409,63 +409,6 @@ public void testConcurrentTransfers() throws Exception {
 
 ## 📁 Estrutura do Projeto
 
-```
-bip-teste-integrado/
-├── backend-module/          # Spring Boot REST API
-│   ├── src/
-│   │   ├── main/java/
-│   │   │   └── com/example/backend/
-│   │   │       ├── config/       # Configurações (CORS, Swagger)
-│   │   │       ├── controller/   # REST Controllers
-│   │   │       ├── dto/          # Request/Response DTOs
-│   │   │       ├── entity/       # JPA Entities
-│   │   │       ├── exception/    # Exception Handling
-│   │   │       ├── mapper/       # Entity ↔ DTO Mappers
-│   │   │       ├── repository/   # Spring Data Repositories
-│   │   │       └── service/      # Business Logic
-│   │   ├── resources/
-│   │   │   ├── application.yml
-│   │   │   └── application-prod.yml
-│   │   └── test/                 # Testes unitários
-│   ├── Dockerfile
-│   └── pom.xml
-│
-├── ejb-module/              # Jakarta EE EJB Module
-│   ├── src/
-│   │   ├── main/java/
-│   │   │   └── com/example/ejb/
-│   │   │       ├── BeneficioEjbService.java    # Serviço EJB principal
-│   │   │       ├── entity/                     # JPA Entities
-│   │   │       └── exception/                  # Business Exceptions
-│   │   ├── resources/
-│   │   │   └── META-INF/
-│   │   │       └── persistence.xml
-│   │   └── test/                               # Testes (18 testes)
-│   ├── target/
-│   │   ├── ejb-module.jar                      # JAR compilado
-│   │   └── ejb-module-client.jar               # Cliente
-│   └── pom.xml
-│
-├── frontend/                # Angular 17 + Material
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── components/
-│   │   │   │   ├── beneficio-list/    # Listagem
-│   │   │   │   ├── beneficio-form/    # Criar/Editar
-│   │   │   │   └── transfer-dialog/   # Transferência
-│   │   │   ├── models/
-│   │   │   ├── services/
-│   │   │   └── app.config.ts
-│   │   ├── styles.scss        # Temas dark/light
-│   │   └── index.html
-│   ├── nginx.conf
-│   ├── Dockerfile
-│   ├── package.json
-│   └── angular.json
-│
-## 📁 Estrutura do Projeto
-
-```
 bip-teste-integrado/
 ├── backend-module/          # Spring Boot 3.2 REST API
 │   ├── src/
