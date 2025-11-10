@@ -1,0 +1,65 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: bip-postgres
+    environment:
+      POSTGRES_DB: beneficiodb
+      POSTGRES_USER: beneficio_user
+      POSTGRES_PASSWORD: beneficio_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/2-seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U beneficio_user -d beneficiodb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - bip-network
+
+  backend:
+    build:
+      context: ./backend-module
+      dockerfile: Dockerfile
+    container_name: bip-backend
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/beneficiodb
+      SPRING_DATASOURCE_USERNAME: beneficio_user
+      SPRING_DATASOURCE_PASSWORD: beneficio_pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - bip-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: bip-frontend
+    environment:
+      API_URL: http://localhost:8080
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - bip-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  bip-network:
+    driver: bridge
+

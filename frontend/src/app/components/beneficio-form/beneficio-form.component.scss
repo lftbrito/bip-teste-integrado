@@ -1,0 +1,90 @@
+mat-card {
+  margin: 20px;
+  max-width: 600px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+
+  button {
+    min-width: 120px;
+  }
+
+  // Botão Cancelar - fundo branco com texto preto no tema claro
+  button[type="button"] {
+    background-color: #ffffff !important;
+    color: #000000 !important; // Preto para melhor contraste
+    border: 1px solid #ccc !important;
+
+    // Forçar cor preta no span interno
+    .mdc-button__label,
+    span {
+      color: #000000 !important;
+    }
+
+    &:hover {
+      background-color: #e0e0e0 !important; // Cinza claro no hover
+      border-color: #999 !important;
+      color: #000000 !important;
+      
+      .mdc-button__label,
+      span {
+        color: #000000 !important;
+      }
+    }
+  }
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+mat-spinner {
+  margin: 0 auto;
+}
+
+// Dark theme support
+:host-context(.dark-theme) {
+  .form-actions {
+    // Botão Cancelar no tema escuro - mantém branco com texto preto
+    button[type="button"] {
+      background-color: #ffffff !important;
+      color: #000000 !important; // Preto para melhor contraste
+      border: 1px solid #ccc !important;
+      
+      // Forçar cor preta no span interno
+      .mdc-button__label,
+      span {
+        color: #000000 !important;
+      }
+      
+      &:hover {
+        background-color: #e0e0e0 !important; // Cinza claro no hover
+        border-color: #999 !important;
+        color: #000000 !important;
+        
+        .mdc-button__label,
+        span {
+          color: #000000 !important;
+        }
+      }
+
+      &:disabled {
+        background-color: #cccccc !important;
+        color: #666666 !important;
+        border-color: #999 !important;
+      }
+    }
+  }
+}

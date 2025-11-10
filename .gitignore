@@ -1,0 +1,93 @@
+# ===================================
+# Java / Maven
+# ===================================
+target/
+*.class
+*.jar
+!backend-module-*.jar.original
+*.war
+*.ear
+*.log
+*.tmp
+.DS_Store
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# ===================================
+# Angular / Node.js
+# ===================================
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+
+# ===================================
+# Build Artifacts
+# ===================================
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# ===================================
+# Test Coverage
+# ===================================
+jacoco.exec
+*.exec
+coverage/
+.nyc_output/
+
+# ===================================
+# OS Files
+# ===================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ===================================
+# Logs
+# ===================================
+*.log
+logs/
+*.log.*
+
+# ===================================
+# Temporary Files
+# ===================================
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# ===================================
+# Database
+# ===================================
+*.db
+*.sqlite
+*.sqlite3
+
+# ===================================
+# Environment Variables
+# ===================================
+.env
+.env.local
+.env.*.local

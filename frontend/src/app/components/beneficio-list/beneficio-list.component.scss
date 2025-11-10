@@ -1,0 +1,47 @@
+.table-actions {
+  margin-bottom: 20px;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+table {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.status-ativo {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.status-inativo {
+  color: #f44336;
+  font-weight: 500;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #757575;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+  }
+
+  p {
+    font-size: 18px;
+    margin: 0;
+  }
+}
+
+mat-card {
+  margin: 20px;
+}

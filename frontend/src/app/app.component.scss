@@ -1,0 +1,55 @@
+.app-container {
+  min-height: 100vh;
+  background-color: #fafafa;
+  transition: background-color 0.3s ease;
+}
+
+.app-header {
+  background-color: #1976d2;
+  color: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
+  
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+}
+
+.app-content {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+// Botão flutuante de tema
+.theme-toggle-fab {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Tema escuro
+:host-context(.dark-theme) {
+  .app-container {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  
+  .app-header {
+    background-color: #1f1f1f;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+}

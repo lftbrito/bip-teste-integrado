@@ -1,0 +1,61 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ isEditMode ? 'Editar Benefício' : 'Novo Benefício' }}</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="spinner-container" *ngIf="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="salvar()" *ngIf="!loading">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome">
+        <mat-error *ngIf="nome?.hasError('required')">
+          Nome é obrigatório
+        </mat-error>
+        <mat-error *ngIf="nome?.hasError('minlength')">
+          Mínimo de 3 caracteres
+        </mat-error>
+        <mat-error *ngIf="nome?.hasError('maxlength')">
+          Máximo de 100 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Descrição (opcional)</mat-label>
+        <textarea matInput formControlName="descricao" rows="3"></textarea>
+        <mat-error *ngIf="descricao?.hasError('maxlength')">
+          Máximo de 500 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Valor</mat-label>
+        <input matInput type="number" formControlName="valor" step="0.01" min="0">
+        <span matTextPrefix>R$&nbsp;</span>
+        <mat-error *ngIf="valor?.hasError('required')">
+          Valor é obrigatório
+        </mat-error>
+        <mat-error *ngIf="valor?.hasError('min')">
+          Valor não pode ser negativo
+        </mat-error>
+      </mat-form-field>
+
+      <mat-checkbox formControlName="ativo" class="full-width">
+        Benefício Ativo
+      </mat-checkbox>
+
+      <div class="form-actions">
+        <button mat-raised-button type="button" (click)="voltar()" [disabled]="submitting">
+          Cancelar
+        </button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="submitting">
+          <mat-spinner diameter="20" *ngIf="submitting"></mat-spinner>
+          <span *ngIf="!submitting">{{ isEditMode ? 'Atualizar' : 'Salvar' }}</span>
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

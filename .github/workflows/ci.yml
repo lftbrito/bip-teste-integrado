@@ -12,5 +12,27 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      
+      # Backend Module
       - name: Build backend
         run: mvn -B -f backend-module clean package
+      - name: Test backend
+        run: mvn -B -f backend-module test
+      
+      # EJB Module
+      - name: Build EJB
+        run: mvn -B -f ejb-module clean package
+      - name: Test EJB
+        run: mvn -B -f ejb-module test
+      
+      # Frontend
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install frontend dependencies
+        run: npm ci --prefix frontend
+      - name: Build frontend
+        run: npm run build --prefix frontend
+      - name: Test frontend
+        run: npm test --prefix frontend -- --watch=false --browsers=ChromeHeadless

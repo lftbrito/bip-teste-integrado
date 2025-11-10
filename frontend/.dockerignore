@@ -1,0 +1,29 @@
+# Node modules
+node_modules/
+npm-debug.log
+
+# Build output
+dist/
+.angular/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+
+# Logs
+*.log
+
+# README e configs de desenvolvimento
+README.md
+.editorconfig
+.gitignore
+karma.conf.js
+tsconfig.spec.json

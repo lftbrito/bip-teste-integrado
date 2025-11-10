@@ -1,0 +1,17 @@
+<div class="app-container">
+  <header class="app-header">
+    <h1>{{ title }}</h1>
+  </header>
+  <main class="app-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<!-- Botão flutuante para alternar tema -->
+<button 
+  mat-fab 
+  class="theme-toggle-fab" 
+  (click)="toggleTheme()"
+  [attr.aria-label]="isDarkTheme ? 'Ativar tema claro' : 'Ativar tema escuro'">
+  <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
+</button>
