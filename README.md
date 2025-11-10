@@ -406,6 +406,7 @@ public void testConcurrentTransfers() throws Exception {
 **Nota**: A aplicação Spring Boot atual usa **Optimistic Locking** (@Version), que também resolve o problema de concorrência, mas com estratégia diferente (retry em vez de bloqueio).
 
 ---
+```
 
 ## 📁 Estrutura do Projeto
 
