@@ -406,61 +406,62 @@ public void testConcurrentTransfers() throws Exception {
 **Nota**: A aplicação Spring Boot atual usa **Optimistic Locking** (@Version), que também resolve o problema de concorrência, mas com estratégia diferente (retry em vez de bloqueio).
 
 ---
-```
 
 ## 📁 Estrutura do Projeto
 
+```
 bip-teste-integrado/
-├── backend-module/          # Spring Boot 3.2 REST API
+├── backend-module/          # Spring Boot REST API
 │   ├── src/
-│   │   ├── main/java/com/example/backend/
-│   │   │   ├── config/       # Configurações (CORS, Swagger, JPA)
-│   │   │   ├── controller/   # REST Controllers (7 endpoints)
-│   │   │   ├── dto/          # Request/Response DTOs com validações
-│   │   │   ├── entity/       # JPA Entities (@Version para optimistic lock)
-│   │   │   ├── exception/    # Business Exceptions + GlobalExceptionHandler
-│   │   │   ├── mapper/       # Entity ↔ DTO Mappers
-│   │   │   ├── repository/   # Spring Data JPA Repositories
-│   │   │   └── service/      # Business Logic + Transações
+│   │   ├── main/java/
+│   │   │   └── com/example/backend/
+│   │   │       ├── config/       # Configurações (CORS, Swagger)
+│   │   │       ├── controller/   # REST Controllers
+│   │   │       ├── dto/          # Request/Response DTOs
+│   │   │       ├── entity/       # JPA Entities
+│   │   │       ├── exception/    # Exception Handling
+│   │   │       ├── mapper/       # Entity ↔ DTO Mappers
+│   │   │       ├── repository/   # Spring Data Repositories
+│   │   │       └── service/      # Business Logic
 │   │   ├── resources/
-│   │   │   ├── application.yml        # Config padrão (H2)
-│   │   │   └── application-prod.yml   # Config produção (PostgreSQL)
-│   │   └── test/java/         # 20+ testes unitários
-│   ├── Dockerfile            # Multi-stage build (Maven + JRE)
-│   └── pom.xml               # Dependencies Spring Boot 3.2
+│   │   │   ├── application.yml
+│   │   │   └── application-prod.yml
+│   │   └── test/                 # Testes unitários
+│   ├── Dockerfile
+│   └── pom.xml
 │
-├── ejb-module/              # Jakarta EE 10 EJB Module (Standalone)
+├── ejb-module/              # Jakarta EE EJB Module
 │   ├── src/
-│   │   ├── main/java/com/example/ejb/
-│   │   │   ├── BeneficioEjbService.java    # @Stateless EJB com pessimistic lock
-│   │   │   ├── entity/BeneficioEjb.java    # JPA Entity para EJB
-│   │   │   └── exception/                  # Business Exceptions
-│   │   ├── resources/META-INF/
-│   │   │   └── persistence.xml             # JPA config (beneficioPU)
-│   │   └── test/java/         # 18 testes (concorrência, performance, validações)
+│   │   ├── main/java/
+│   │   │   └── com/example/ejb/
+│   │   │       ├── BeneficioEjbService.java    # Serviço EJB principal
+│   │   │       ├── entity/                     # JPA Entities
+│   │   │       └── exception/                  # Business Exceptions
+│   │   ├── resources/
+│   │   │   └── META-INF/
+│   │   │       └── persistence.xml
+│   │   └── test/                               # Testes (18 testes)
 │   ├── target/
-│   │   ├── ejb-module-1.0.0.jar           # JAR compilado (pronto para deploy)
-│   │   └── site/jacoco/                   # Coverage report (85%)
-│   └── pom.xml               # Dependencies Jakarta EE 10
+│   │   ├── ejb-module.jar                      # JAR compilado
+│   │   └── ejb-module-client.jar               # Cliente
+│   └── pom.xml
 │
-├── frontend/                # Angular 17 SPA + Material Design
+├── frontend/                # Angular 17 + Material
 │   ├── src/
 │   │   ├── app/
 │   │   │   ├── components/
-│   │   │   │   ├── beneficio-list/    # Listagem com filtros (15 testes)
-│   │   │   │   ├── beneficio-form/    # Criar/Editar (20 testes)
-│   │   │   │   └── transfer-dialog/   # Modal transferência (13 testes)
-│   │   │   ├── models/                # TypeScript interfaces
-│   │   │   ├── services/              # HTTP service (20 testes)
-│   │   │   ├── app.component.ts       # Layout principal (9 testes)
-│   │   │   └── app.config.ts          # Providers + routing
+│   │   │   │   ├── beneficio-list/    # Listagem
+│   │   │   │   ├── beneficio-form/    # Criar/Editar
+│   │   │   │   └── transfer-dialog/   # Transferência
+│   │   │   ├── models/
+│   │   │   ├── services/
+│   │   │   └── app.config.ts
 │   │   ├── styles.scss        # Temas dark/light
 │   │   └── index.html
-│   ├── nginx.conf            # Config servidor produção
-│   ├── Dockerfile            # Multi-stage build (Node + Nginx)
-│   ├── package.json          # Dependencies Angular 17
-│   ├── angular.json          # CLI config
-│   └── karma.conf.js         # Testes com Puppeteer/ChromeHeadlessCI
+│   ├── nginx.conf
+│   ├── Dockerfile
+│   ├── package.json
+│   └── angular.json
 │
 ├── db/                      # Database Scripts
 │   ├── schema.sql           # DDL (tabela beneficios com índices)
@@ -472,8 +473,7 @@ bip-teste-integrado/
 │   └── README.md            # Overview dos docs
 │
 ├── docker-compose.yml       # Orquestração 3 serviços (postgres, backend, frontend)
-├── README.md               # Este arquivo (documentação completa)
-└── app.component.html      # (arquivo legado)
+└── README.md               # Este arquivo (documentação completa)
 ```
 
 ### API Endpoints (Backend REST)
@@ -580,88 +580,7 @@ Exception
 
 ---
 
-## 🙏 Agradecimentos
-
-Obrigado pela oportunidade de demonstrar minhas habilidades técnicas através deste desafio!
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-### Backend
-- **Java 17** (LTS)
-- **Spring Boot 3.2.0** (REST, Data JPA, Validation)
-- **Jakarta EE 10** (EJB, JPA 3.1, Transactions)
-- **Maven 3.8+** (build)
-- **PostgreSQL 15** (produção via Docker)
-- **H2** (testes unitários)
-
-### Frontend
-- **Angular 17** (standalone components)
-- **TypeScript 5**
-- **Angular Material 17**
-- **RxJS 7**
-- **SCSS**
-
-### Qualidade
-- **JUnit 5** + **Mockito**
-- **Spring Boot Test**
-- **JaCoCo** (cobertura)
-
----
-
-## ✅ Pré-requisitos
-
-Certifique-se de ter instalado:
-
-- **Docker Desktop** e **Docker Compose** ([Download](https://www.docker.com/products/docker-desktop))
-- **Git** ([Download](https://git-scm.com/downloads))
-
-### Para Desenvolvimento Local (Opcional)
-
-- **Java JDK 17+** ([Download](https://www.oracle.com/java/technologies/downloads/#java17))
-- **Maven 3.9+** ([Download](https://maven.apache.org/download.cgi))
-- **Node.js 20+** e **npm 10+** ([Download](https://nodejs.org/))
-
-### Verificar Instalações
-
-```powershell
-docker --version        # Docker Desktop instalado
-docker-compose --version # Docker Compose disponível
-git --version           # Git instalado
-
-# Opcional (apenas para desenvolvimento local):
-java -version           # Deve mostrar Java 17+
-mvn -version            # Deve mostrar Maven 3.9+
-node -version           # Deve mostrar Node 20+
-npm -version            # Deve mostrar npm 10+
-```
-
----
-
-## 📥 Instalação e Configuração
-
-### 1. Clonar o Repositório
-
-```powershell
-git clone <repository-url>
-cd bip-teste-integrado
-```
-
-### 2. Build do Backend (Necessário antes do Docker)
-
-```powershell
-# Na raiz do projeto, compilar o backend
-cd backend-module
-mvn clean package -DskipTests
-cd ..
-```
-
-**Nota**: O PostgreSQL será inicializado automaticamente pelo Docker Compose com schema e dados já configurados (via `db/schema.sql` e `db/seed.sql`).
-
----
-
-## 🚀 Executando o Projeto
+##  Executando o Projeto
 
 ### Opção 1: Docker Compose (Recomendado - Mais Rápido) 🐳
 
@@ -682,12 +601,6 @@ Start-Sleep -Seconds 30
 # 4. Verificar se tudo está rodando
 docker-compose ps
 ```
-
-**O que acontece:**
-- ✅ PostgreSQL inicia com schema e seed (2 benefícios)
-- ✅ Backend Spring Boot compila e inicia (porta 8080)
-- ✅ Frontend Angular compila com Nginx (porta 4200)
-- ✅ Todos os serviços conectados automaticamente
 
 **Acessar:**
 - 🌐 **Frontend (Angular):** http://localhost:4200
@@ -812,138 +725,10 @@ mvn test jacoco:report
 
 ### Resultados Esperados
 
-- **Backend:** 15/15 testes passando
-- **EJB:** 13/13 testes passando
-- **Cobertura:** ~80% (backend), ~85% (EJB)
-
----
-
-## 📁 Estrutura do Projeto
-
-```
-bip-teste-integrado/
-├── backend-module/          # REST API Spring Boot
-│   ├── src/main/java/com/example/backend/
-│   │   ├── controller/      # Endpoints REST
-│   │   ├── service/         # Lógica de negócio + Optimistic Lock
-│   │   ├── repository/      # Spring Data JPA
-│   │   ├── entity/          # Entidades JPA
-│   │   ├── dto/             # Data Transfer Objects
-│   │   ├── mapper/          # Entity ↔ DTO
-│   │   ├── exception/       # Exceções customizadas
-│   │   └── config/          # CORS, etc.
-│   └── src/main/resources/
-│       ├── application.yml           # Config base
-│       ├── application-mysql.yml     # Profile MySQL
-│       └── application-test.yml      # Profile H2
-│
-├── ejb-module/              # EJB Jakarta EE
-│   ├── src/main/java/com/example/ejb/
-│   │   ├── BeneficioEjbService.java  # Stateless EJB + Pessimistic Lock
-│   │   ├── entity/                   # Entidade Beneficio
-│   │   └── exception/                # Exception hierarchy
-│   └── src/main/resources/
-│       └── META-INF/
-│           └── persistence.xml       # Configuração JPA
-│
-├── frontend/                # Angular 17
-│   ├── src/app/
-│   │   ├── components/      # Componentes standalone
-│   │   ├── services/        # HTTP services
-│   │   ├── models/          # Interfaces TypeScript
-│   │   └── app.component.*  # Shell + Dark mode
-│   └── package.json
-│
-├── db/                      # Scripts SQL
-│   ├── schema.sql           # DDL (CREATE TABLE)
-│   ├── seed.sql             # Dados iniciais
-│
-├── docs/                    # Documentação técnica
-│   ├── DOCKER-SETUP.md      # Execução do Docker
-│   ├── IMPLEMENTATION.md    # Implementação da solução
-│   └── README.md            # Critérios do desafio
-│
-├── .github/workflows/       # CI/CD (TODO)
-├── docker-compose.yml       # Docker setup
-├── .gitignore               # Arquivos ignorados
-├── ANALISE-DESAFIO.md       # Análise completa do desafio (96.5/100)
-└── README.md                # Este arquivo
-```
-
----
-
-## 📚 Documentação Técnica
-
-### API REST Endpoints
-
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| `GET` | `/api/beneficios` | Lista todos os benefícios |
-| `GET` | `/api/beneficios/ativos` | Lista apenas benefícios ativos |
-| `GET` | `/api/beneficios/{id}` | Busca benefício por ID |
-| `POST` | `/api/beneficios` | Cria novo benefício |
-| `PUT` | `/api/beneficios/{id}` | Atualiza benefício |
-| `DELETE` | `/api/beneficios/{id}` | Remove benefício (soft delete) |
-| `POST` | `/api/beneficios/transferir` | Transfere valor entre benefícios |
-
-### Exemplo: Transferência
-
-**Request:**
-```json
-POST /api/beneficios/transferir
-Content-Type: application/json
-
-{
-  "beneficioOrigemId": 1,
-  "beneficioDestinoId": 2,
-  "valor": 100.00
-}
-```
-
-**Response (200 OK):**
-```json
-{
-  "success": true,
-  "origemId": 1,
-  "destinoId": 2,
-  "valorTransferido": 100.00,
-  "timestamp": "2025-11-08T12:00:00"
-}
-```
-
-**Response (400 Bad Request - Saldo Insuficiente):**
-```json
-{
-  "error": "Saldo insuficiente",
-  "message": "Benefício origem não possui saldo suficiente",
-  "status": 400
-}
-```
-
----
-
-## 📝 Validações Implementadas
-
-### Backend (Bean Validation)
-- ✅ **Nome**: obrigatório (@NotBlank), 3-100 caracteres (@Size)
-- ✅ **Descrição**: opcional, máx. 500 caracteres (@Size)
-- ✅ **Número do Benefício**: obrigatório (@NotBlank), único no banco
-- ✅ **Saldo**: obrigatório (@NotNull), positivo (@Positive)
-- ✅ **Status**: boolean (ativo/inativo)
-
-### Frontend (Reactive Forms)
-- ✅ Nome: required, minLength(3), maxLength(100)
-- ✅ Descrição: maxLength(500)
-- ✅ Número: required, pattern (apenas números)
-- ✅ Valor: required, min(0.01)
-- ✅ Validações em tempo real com feedback visual
-
-### Regras de Negócio (Transferências)
-- ✅ Benefícios de origem e destino devem ser diferentes
-- ✅ Valor deve ser positivo (> 0)
-- ✅ Ambos os benefícios devem estar ativos
-- ✅ Benefício de origem deve ter saldo suficiente
-- ✅ Operação deve ser atômica (commit ou rollback completo)
+- **Backend:** 20+ testes passando
+- **EJB:** 18 testes passando
+- **Frontend:** 80 testes passando
+- **Cobertura:** Backend ~80% | EJB ~85% | Frontend 100%
 
 ---
 
